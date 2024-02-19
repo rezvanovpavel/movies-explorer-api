@@ -82,7 +82,9 @@ const updateInfo = (req, res, next) => {
       if (!user) {
         throw new NotFoundError('Запрашиваемый пользователь не найден');
       }
-      return res.send(user);
+      return res.send({
+        name: user.name, email: user.email, _id: user._id,
+      });
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
