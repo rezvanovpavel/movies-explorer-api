@@ -87,6 +87,9 @@ const updateInfo = (req, res, next) => {
       });
     })
     .catch((err) => {
+      if (err.code === 11000) {
+        next(new ConflictError('Пользователь с таким электронным адресом уже существует'));
+      }
       if (err.name === 'ValidationError') {
         next(new BadRequestError('Переданы некорректные данные'));
       } else {
